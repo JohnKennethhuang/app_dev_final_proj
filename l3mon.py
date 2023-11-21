@@ -27,11 +27,11 @@ def burger_selection():
 
 def main():
     customers = []
-    for i in range(3):
+    for i in range(3): # eventually change this to 30 to add all customers
         name = input('Customer name: ')
         burger = burger_selection()
-        time = 12
-        total = 13
+        time = 12 #change this to input
+        total = 13 #eventually figure out a way to get the total better
 
 
     customer = Client(name, burger, time, total)
