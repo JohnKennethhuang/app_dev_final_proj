@@ -44,13 +44,47 @@ def burger_selection():
 
     return selections 
 
+def order_time():
+    while True:
+        time_input = input("Enter the time of the order (HH:MM, 24-hour format): ")
+
+# checks for time format 
+
+        if len(time_input) == 5 and time_input[2] == ":":
+            if len(time_input) == 5 and time_input[2] == ":":
+                hours = time_input[:2]
+                minutes = time_input[3:]
+
+                if hours.isdigit() and minutes.isdigit():
+                    hours, minutes = int(hours), int(minutes)
+# checks if time is within 11 - 10 or 11 to 22
+
+                    if 11 <= hours <= 22 and 0 <= minutes < 60:
+                        return time_input
+        print("Invalid time or format. Please enter enter time in HH:MM format, between 11:00 and 22:00.")
+
+def item_prices(burger_selections):
+    prices = {
+        1: 5.99,
+        2: 6.99,
+        3: 7.99,
+        4: 8.99,
+        5: 9.99
+    }
+
+    total = sum(prices[int(burger)] for burger in burger_selections)
+    return total 
+
+
+
 def main():
     customers = []
     for i in range(3): # eventually change this to 30 to add all customers
         name = input('Customer name: ')
         burger = burger_selection()
-        time = 12 #change this to input
-        total = 13 #eventually figure out a way to get the total better
+        time = order_time()
+        total = item_prices(burger)
+        print(f"{name}'s bill adds up to {total}")
 
 
     customer = Client(name, burger, time, total)
