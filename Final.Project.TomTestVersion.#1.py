@@ -98,7 +98,7 @@ def main():
     
     
     
-    for i in range(2): # eventually change this to 30 to add all customers
+    for i in range(3): # eventually change this to 30 to add all customers
         name = input('Customer name: ')
         burger = burger_selection()
         time = order_time()
@@ -134,7 +134,7 @@ def get_longest_name (theRosta):
                 otherChamps = ""
         elif len(currentContender) == len(currentChamp):
             secondaryChamp = currentContender
-            otherChamps = otherChamps + ", " + currentContender
+            otherChamps = otherChamps + "" + currentContender 
     print ("The longest customer name of the shift is",currentChamp,"\nWith names of the same lengh being: ",otherChamps)
     
             
@@ -147,4 +147,5 @@ def get_longest_name (theRosta):
 final_list = main()
 
 get_longest_name(final_list)
+
 
