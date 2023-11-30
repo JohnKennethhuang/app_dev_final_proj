@@ -83,28 +83,26 @@ class Client:
         self.burger = burger
         self.time = time
         self.total = total
+    def burger_selection():
+        print("1.cheeseburger($5.99), 2.hamburger($6.99), 3.double_double($7.99), 4.big mac($8.99), 5.baconator($9.99)")
+        selections = []
+        burger = input("Enter the number of the burger you would like to add to your order\nONE NUMBER AT A TIME: ")
+        while burger not in ("1", "2", "3", "4", "5",):
+            print("1.cheeseburger($5.99), 2.hamburger($6.99), 3.double_double($7.99), 4.big mac($8.99), 5.baconator($9.99)")
+            burger = input(f'{burger} is an invalid selection, please try again')
+        else:
+            selections.append(burger)
+        more = input("Would you like to add another burger to your order? (yes/no): ")
+        while more.lower() not in ("yes", "no", "y", "n"):
+            print("Invalid selection, please try again.")
+            more = input("Would you like to add another burger to your order? (yes/no): ")
+        return selections 
 
    
 # Function changed to allow customers to add multiple items to their order
 # and to confirm if they are finished and if not they can add more         
  
-def burger_selection():
-    print("1.cheeseburger, 2.hamburger, 3.double_double, 4.big mac, 5.baconator")
-    selections = [] 
 
-    while True:
-        burger = input("Enter the number of the burger you would like to add to your order\nONE NUMBER AT A TIME: ")
-
-        if burger in ("1", "2", "3", "4", "5",):
-            selections.append(burger)
-        else:
-            print("Invalid selection, please try again.\n")
-        
-        more = input("Would you like to add another burger ot your order? (yes/no): ")
-        if more.lower() != "yes":
-            break 
-
-    return selections 
 
 # time input 
 
@@ -166,9 +164,10 @@ def tenth_customers(customers):
 
 def main():
     customers = []
-    for i in range(30): # eventually change this to 30 to add all customers
+    bills = []
+    for i in range(3): # eventually change this to 30 to add all customers
         name = input('Customer name: ')
-        burger = burger_selection()
+        burger = Client.burger_selection()
         time = order_time()
         total = item_prices(burger, bills)
         print(f"{name}'s bill adds up to {total}")
@@ -177,11 +176,15 @@ def main():
         customer = Client(name, burger, time, total)
         customers.append(customer)
 
-        continue_adding = input("Do you want to add another customer? (yes/no): ").lower()
-        if continue_adding != "yes":
-            break
+        # continue_adding = input("Do you want to add another customer? (yes/no): ").lower()
+        continue_adding = input("Would you like to add another burger ot your order? (yes/no): ")
+        if continue_adding.lower() not in ("yes", "no", "y", "n"):
+            print("Invalid selection, please try again.\n")
+            more = input("Would you like to add another burger ot your order? (yes/no): ")
+            if continue_adding not in ("yes","y"):
+                break
         
-        
+    print(bills)
     tenth_customer_name = tenth_customers(customers)
     print(f"The name of the 10th customer is: {tenth_customer_name}")
         
