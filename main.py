@@ -1,5 +1,4 @@
-# John's Code 
-
+# Everyone's Code
 
 # client’s name, burger’s name, time of the day, and the total bill
 
