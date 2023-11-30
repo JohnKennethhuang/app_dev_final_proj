@@ -136,7 +136,7 @@ def order_time():
 # burger_selections is a parameter which means it goes to the 
 # buger_selection function to grab contents needed for this function to work properly
 # 
-def item_prices(burger_selections):
+def item_prices(burger_selections, bills):
     prices = {
         1: 5.99,
         2: 6.99,
@@ -146,7 +146,8 @@ def item_prices(burger_selections):
     }
 
     total = sum(prices[int(burger)] for burger in burger_selections)
-    return total 
+    bills.append(total)
+    return total
 
 
 
@@ -169,7 +170,7 @@ def main():
         name = input('Customer name: ')
         burger = burger_selection()
         time = order_time()
-        total = item_prices(burger)
+        total = item_prices(burger, bills)
         print(f"{name}'s bill adds up to {total}")
     
 
