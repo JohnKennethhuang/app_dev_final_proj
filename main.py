@@ -3,14 +3,14 @@
 # client’s name, burger’s name, time of the day, and the total bill
 
 
-# Name of the client number 10
-# The client with the longest name
-# Top three most selling burgers (based on the number of burgers)
+# Name of the client number 10 - done 
+# The client with the longest name - get from thomas 
+# Top three most selling burgers (based on the number of burgers) 
 # Top three best clients (highest bills)
-# Name of the client with the second-to-last lowest bill
+# Name of the client with the second-to-last lowest bill - done 
 # Busiest hour of the day (number of clients)
 # Best hour of the day (sales)
-# Total sales on the day
+# Total sales on the day - done 
 
 # No more than 30 clients per day 
 # 5 types of borgers 
@@ -77,6 +77,9 @@
 # when a new client is made, '__init__' is automatically called to set up that client. 
 # It takes the client's name, burger, time, and total, and saves them so that this particular client remeber these details
 
+
+
+
 class Client:
     def __init__(self, name, burger, time, total):
         self.name = name
@@ -84,19 +87,33 @@ class Client:
         self.time = time
         self.total = total
     def burger_selection():
-        print("1.cheeseburger($5.99), 2.hamburger($6.99), 3.double_double($7.99), 4.big mac($8.99), 5.baconator($9.99)")
+        print("1.cheeseburger($5.99)\n2.hamburger($6.99)\n3.double_double($7.99)\n4.big mac($8.99)\n5.baconator($9.99)")
         selections = []
-        burger = input("Enter the number of the burger you would like to add to your order\nONE NUMBER AT A TIME: ")
-        while burger not in ("1", "2", "3", "4", "5",):
-            print("1.cheeseburger($5.99), 2.hamburger($6.99), 3.double_double($7.99), 4.big mac($8.99), 5.baconator($9.99)")
-            burger = input(f'{burger} is an invalid selection, please try again')
-        else:
+        while True:
+            burger = input("Enter the number of the burger you would like to add to your order (or 'done' to finish): ")
+            if burger.lower() == 'done':
+            
+                break
+            
+            if burger not in ("1", "2", "3", "4", "5"):
+                print(f'{burger} is an invalid selection, please try again')
+                print("1.cheeseburger($5.99), 2.hamburger($6.99), 3.double_double($7.99), 4.big mac($8.99), 5.baconator($9.99)")
+                continue
             selections.append(burger)
-        more = input("Would you like to add another burger to your order? (yes/no): ")
-        while more.lower() not in ("yes", "no", "y", "n"):
-            print("Invalid selection, please try again.")
-            more = input("Would you like to add another burger to your order? (yes/no): ")
-        return selections 
+        return selections
+        # burger = input("Enter the number of the burger you would like to add to your order: ")
+        # while burger not in ("1", "2", "3", "4", "5",):
+        #     print(f'{burger} is an invalid selection, please try again')
+            # print("1.cheeseburger($5.99), 2.hamburger($6.99), 3.double_double($7.99), 4.big mac($8.99), 5.baconator($9.99)")
+            # burger = input("Enter the number of the burger you would like to add to your order: ")
+
+        # else:
+        #     selections.append(burger)
+        # more = input("Would you like to add another burger to your order? (yes/no): ")
+        # while more.lower() not in ("yes", "no", "y", "n"):
+        #     print("Invalid selection, please try again.")
+        #     more = input("Would you like to add another burger to your order? (yes/no): ")
+        # return selections 
 
    
 # Function changed to allow customers to add multiple items to their order
@@ -143,7 +160,7 @@ def item_prices(burger_selections, bills):
         5: 9.99
     }
 
-    total = sum(prices[int(burger)] for burger in burger_selections)
+    total = round(sum(prices[int(burger)] for burger in burger_selections), 2) #added a round function to round to 2 decimal places
     bills.append(total)
     return total
 
@@ -160,12 +177,18 @@ def tenth_customers(customers):
         return customers[9].name
     else:
         return "There are less than 10 customers."
+    
+
+
+
+
+
 
 
 def main():
     customers = []
     bills = []
-    for i in range(3): # eventually change this to 30 to add all customers
+    for i in range(30): # eventually change this to 30 to add all customers
         name = input('Customer name: ')
         burger = Client.burger_selection()
         time = order_time()
@@ -176,30 +199,39 @@ def main():
         customer = Client(name, burger, time, total)
         customers.append(customer)
 
-        # continue_adding = input("Do you want to add another customer? (yes/no): ").lower()
-        continue_adding = input("Would you like to add another burger ot your order? (yes/no): ")
-        if continue_adding.lower() not in ("yes", "no", "y", "n"):
-            print("Invalid selection, please try again.\n")
-            more = input("Would you like to add another burger ot your order? (yes/no): ")
-            if continue_adding not in ("yes","y"):
+        if len(customers) <30:    
+            continue_adding = input("Do you want to add another customer? (yes/no): ").lower()
+            if continue_adding in ("no", "n"):
                 break
+            elif continue_adding in ("yes", "y"):
+                print("Welcome\n")
+        #     more = input("Would you like to add another customer to your order? (yes/no): ")
+        #     if continue_adding not in ("yes","y"):
+            
         
-    print(bills)
     tenth_customer_name = tenth_customers(customers)
     print(f"The name of the 10th customer is: {tenth_customer_name}")
         
-            # loop to check if shit is working 
-    # for customer in customers:
-    #         print(f"Name: {customer.name}, Burger: {customer.burger}, Time: {customer.time}, Total: {customer.total}")
+    total_sales = sum(bills)
+    print(f"Total sales of the day: ${total_sales:.2f}")
+
+    sorted_bills = sorted(customer.total for customer in customers)
+    # sorted() arranges the total from each customer from lowest to highest. 
+    #customer.total # we are taking the total attribute from the class into the variable
+    if len(sorted_bills) >= 2:
+        #Checking the length of the list in the sorted_bills has atleast 2. 
+        second_to_last_bill = sorted_bills[-2]
+        # finds the second to last bill using -2 index. -2 -1 0 1 2 or [0 1 2 3 4] (3 = -2)
+        for client in customers:
+            if client.total == second_to_last_bill:
+                print(f"Client with the second to last lowest bill: {client.name}")
+                break
+    else:
+        print("Not enough customers to find second to last lowest bill")
 
 
 
 
 
-
-
-
-
-
-
+  
 main()
