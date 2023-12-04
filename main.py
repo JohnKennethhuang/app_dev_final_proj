@@ -179,7 +179,245 @@ def tenth_customers(customers):
         return "There are less than 10 customers."
     
 
+# Function to get the longest name 
 
+def get_longest_name (theRosta):
+    currentChamp = ""
+    otherChamps = ""
+    secondaryChamp = ""
+    for fighter in theRosta:
+        currentContender = fighter.name
+        if len(currentContender) > len(currentChamp):
+            currentChamp = currentContender
+            if len(currentContender) > len(secondaryChamp):
+                otherChamps = ""
+        elif len(currentContender) == len(currentChamp):
+            secondaryChamp = currentContender
+            otherChamps = otherChamps + "" + currentContender 
+    print ("\nThe longest customer name of the shift was",currentChamp,"\nWith names of the same lengh being: ",otherChamps)
+
+
+
+# Function for the most popular burgers
+
+def mostPopularBurgers(customers):
+
+    burgerOne = [0, "cheeseburger"]
+    burgerTwo = [0, "hamburger"]
+    burgerThree = [0, "doubledouble"]
+    burgerFour = [0, "big mac"]
+    burgerFive = [0, "baconator"]
+    
+    for client in customers:
+        selection = client.burger
+        for purchase in selection:
+            if purchase == "1":
+                burgerOne[0] = burgerOne[0] + 1
+            elif purchase == "2":
+                burgerTwo[0] = burgerTwo[0] + 1
+            elif purchase == "3":
+                burgerThree[0] = burgerThree[0] + 1
+            elif purchase == "4":
+                burgerFour[0] = burgerFour[0] + 1
+            elif purchase == "5":
+                burgerFive[0] = burgerFive[0] + 1                
+            
+        
+    burgerChoices = [burgerOne, burgerTwo, burgerThree, burgerFour, burgerFive]
+    burgerChoices.sort()
+    
+    print ("\nThe three most popular burgers were",burgerChoices[-1],"",burgerChoices[-2],"",burgerChoices[-3])
+    
+    
+def highestBills (customer):
+    
+    Bills = customer 
+    
+    sorted(Bills, key = lambda Client: Client.total)
+    
+    print ("\nThe customers with the three highest bills are ! ") 
+    
+    if len(customer) > 0:
+        print ((Bills[-1].name))
+    if len(customer) >= 2:
+        print ((Bills[-2].name))
+    if len(customer) >= 3:
+        print ((Bills[-3].name))
+
+
+
+# Function for busiest hour of the day 
+# between 11:00 and 22:00 
+
+def bestNumberOfClients(customers):
+    
+    
+    # initializes variables to keep track of count of each hour 
+    amElleven = 0
+    pmTwelve = 0
+    pmOne = 0
+    pmTwo = 0
+    pmThree = 0
+    pmFour = 0
+    pmFive = 0
+    pmSix = 0
+    pmSeven = 0
+    pmEight = 0
+    pmNine = 0
+    pmTen = 0
+    
+    # for loop to itterate over each client 
+    
+    for client in customers:
+        # sets a variable to the time recorded in each client 
+        purchaseHour = client.time
+       
+       #Grabbing the first and second character from the string that time comes out two and adding them together  
+       
+        first = purchaseHour[0]
+        second = purchaseHour[1]
+        hour = first + second 
+        hour = int(hour)
+        
+        # basically a long winded way of adding a point to each of the counters 
+        
+        if hour == 11:
+            amElleven = amElleven + 1 
+        elif hour == 12:
+            pmTwelve = pmTwelve + 1 
+        elif hour == 13:
+            pmOne = pmOne + 1 
+        elif hour == 14:
+            pmTwo = pmTwo+ 1 
+        elif hour == 15:
+            pmThree = pmThree+ 1 
+        elif hour == 16:
+            pmFour = pmFour + 1 
+        elif hour == 17:
+            pmFive = pmFive + 1 
+        elif hour == 18:
+            pmSix = pmSix + 1 
+        elif hour == 19:
+            pmSeven = pmSeven + 1 
+        elif hour == 20:
+            pmEight = pmEight + 1
+        elif hour == 21:
+            pmNine = pmNine + 1 
+        elif hour == 22:
+            pmTen = pmTen + 1      
+            
+            
+    # adding all the variables to a list 
+    HOURS = [ "Elleven","Twelve","One","Two","Three","Four","Five","Six","Seven","Eight","Nine","Ten"]
+    hourCounts = [amElleven,pmTwelve,pmOne,pmTwo,pmThree,pmFour,pmFive,pmSix,pmSeven,pmEight,pmNine,pmTen]
+    
+    currentChamp = 0 
+    hourList = ""
+    otherChamps = ""
+    secondaryChamp = 0
+    positionCounter = 0 
+    
+    for time in HOURS:    
+        currentContender = hourCounts[positionCounter]
+        if currentContender > currentChamp:
+            currentChamp = currentContender
+            hourList = time 
+            if currentContender > secondaryChamp:
+                otherChamps = ""
+        elif currentContender == currentChamp:
+            secondaryChamp = currentContender
+            otherChamps = otherChamps + time + " "
+        positionCounter = positionCounter + 1 
+            
+    print ("\nThe busiest hour of the day was ",hourList,"\nWith other equally as busy hours being: ",otherChamps)
+    
+    
+    
+    
+
+def mostProfitableHour(customers):
+    
+    
+    # initializes variables to keep track of count of each hour 
+    amElleven = 0
+    pmTwelve = 0
+    pmOne = 0
+    pmTwo = 0
+    pmThree = 0
+    pmFour = 0
+    pmFive = 0
+    pmSix = 0
+    pmSeven = 0
+    pmEight = 0
+    pmNine = 0
+    pmTen = 0
+    
+    # for loop to itterate over each client 
+    
+    for client in customers:
+        # sets a variable to the time recorded in each client 
+        purchaseHour = client.time
+        clientTotal = client.total
+       
+       #Grabbing the first and second character from the string that time comes out two and adding them together  
+       
+        first = purchaseHour[0]
+        second = purchaseHour[1]
+        hour = first + second 
+        hour = int(hour)
+        
+        # basically a long winded way of adding a point to each of the counters 
+        
+        if hour == 11:
+            amElleven = amElleven + clientTotal 
+        elif hour == 12:
+            pmTwelve = pmTwelve + clientTotal 
+        elif hour == 13:
+            pmOne = pmOne + clientTotal 
+        elif hour == 14:
+            pmTw0 = pmTwo + clientTotal 
+        elif hour == 15:
+            pmThree = pmThree+ clientTotal 
+        elif hour == 16:
+            pmFour = pmFour + clientTotal 
+        elif hour == 17:
+            pmFive = pmFive + clientTotal 
+        elif hour == 18:
+            pmSix = pmSix + clientTotal
+        elif hour == 19:
+            pmSeven = pmSeven + clientTotal
+        elif hour == 20:
+            pmEight = pmEight + clientTotal
+        elif hour == 21:
+            pmNine = pmNine + clientTotal 
+        elif hour == 22:
+            pmTen = pmTen + clientTotal      
+            
+            
+    # adding all the variables to a list 
+    HOURS = [ "Elleven","Twelve","One","Two","Three","Four","Five","Six","Seven","Eight","Nine","Ten"]
+    hourCounts = [amElleven,pmTwelve,pmOne,pmTwo,pmThree,pmFour,pmFive,pmSix,pmSeven,pmEight,pmNine,pmTen]
+    
+    currentChamp = 0 
+    hourList = ""
+    otherChamps = ""
+    secondaryChamp = 0
+    positionCounter = 0 
+    
+    for time in HOURS:    
+        currentContender = hourCounts[positionCounter]
+        if currentContender > currentChamp:
+            currentChamp = currentContender
+            hourList = time 
+            if currentContender > secondaryChamp:
+                otherChamps = ""
+        elif currentContender == currentChamp:
+            secondaryChamp = currentContender
+            otherChamps = otherChamps + time + " "
+        positionCounter = positionCounter + 1 
+            
+    print ("\nThe most profitable hour of the day is ",hourList,"\nWith other equally as profitable hours being: ",otherChamps)
+        
 
 
 
@@ -228,7 +466,18 @@ def main():
                 break
     else:
         print("Not enough customers to find second to last lowest bill")
-
+        
+    # Calling function for longest name 
+    
+    get_longest_name(customers)
+    
+    bestNumberOfClients(customers)
+    
+    mostProfitableHour(customers)
+    
+    mostPopularBurgers(customers)
+    
+    highestBills(customers)
 
 
 
